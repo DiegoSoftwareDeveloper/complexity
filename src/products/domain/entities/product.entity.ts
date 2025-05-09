@@ -1,8 +1,6 @@
 import { Exclude, Expose, Transform } from 'class-transformer'
 import { initProp } from '../../../shared/domain/helpers/init_prop'
-import {
-  transformIdToString
-} from '../../../shared/domain/helpers/normalize-id-shared.helper'
+import { transformIdToString } from '../../../shared/domain/helpers/normalize-id-shared.helper'
 
 export interface IProductEntity {
   _id?: string

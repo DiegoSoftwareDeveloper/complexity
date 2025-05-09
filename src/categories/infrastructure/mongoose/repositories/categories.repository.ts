@@ -9,7 +9,6 @@ import {
 } from '../../../../shared/domain/repository/generic.repository.domain'
 import { IReturnDomain } from '../../../../shared/domain/entities/return-domain'
 import { UtilsRepository } from '../../../../shared/infrastructure/mongoose/repositories/utils.repository'
-import { plainToInstance } from 'class-transformer'
 import { CategoryEntity } from '../../../domain/entities/category.entity'
 import { CategoriesRepositoryDomain } from '../../../domain/repositories/categories.repository.domain'
 import { CategorySchemaBaseMongoose } from '../schemas/categories.schema.mongoose'

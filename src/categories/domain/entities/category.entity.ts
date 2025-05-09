@@ -1,4 +1,4 @@
-import { Exclude, Expose, Transform, Type } from 'class-transformer'
+import { Exclude, Expose, Transform } from 'class-transformer'
 import { initProp } from '../../../shared/domain/helpers/init_prop'
 import { transformIdToString } from '../../../shared/domain/helpers/normalize-id-shared.helper'
 

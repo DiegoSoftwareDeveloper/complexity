@@ -1,7 +1,7 @@
 // src/infrastructure/redis/redis.module.ts
-import { Module, Global } from '@nestjs/common';
-import { RedisModule as RedisNestModule } from '@nestjs-modules/ioredis';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { Module, Global } from '@nestjs/common'
+import { RedisModule as RedisNestModule } from '@nestjs-modules/ioredis'
+import { ConfigModule, ConfigService } from '@nestjs/config'
 
 @Global()
 @Module({
@@ -15,8 +15,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         options: {
           lazyConnect: true,
           reconnectOnError: (err) => {
-            console.error('Redis connection error:', err);
-            return true;
+            console.error('Redis connection error:', err)
+            return true
           },
         },
       }),
