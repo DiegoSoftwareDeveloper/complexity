@@ -1,0 +1,2 @@
+GET {{URL}}/products-search?q=term
+Accept: application/json

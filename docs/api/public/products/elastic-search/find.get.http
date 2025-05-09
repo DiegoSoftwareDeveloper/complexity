@@ -1,0 +1,23 @@
+### 1. Búsqueda básica de productos
+GET {{URL}}/search-products?q=iphone
+Accept: application/json
+
+### 2. Búsqueda con filtros avanzados
+GET {{URL}}/search-products?q=iphone&location=Madrid&inStock=true&category=electronics
+Accept: application/json
+
+### 3. Búsqueda paginada
+GET {{URL}}/search-products?page=1&limit=5
+Accept: application/json
+
+### 4. Autocompletado (sugerencias)
+GET {{URL}}/search-products/suggestions?q=ipho
+Accept: application/json
+
+### 5. Búsqueda sin resultados (devuelve sugerencias)
+GET {{URL}}/search-products?q=zxczxc
+Accept: application/json
+
+### 6. Autocompletado (sugerencias)
+GET {{URL}}/search-products/find?page=1&limit=10&query=example&category=electronics
+Accept: application/json

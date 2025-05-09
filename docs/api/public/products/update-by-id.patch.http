@@ -1,0 +1,15 @@
+@id = 550e8400-e29b-41d4-a716-446655440000
+
+PUT {{URL}}/products/{{id}}
+content-type: application/json
+
+{
+  "_id": "550e8400-e29b-41d4-a716-446655440000",
+  "name": "iPhone 14",
+  "normalizedName": "iphone14",
+  "description": "Apple iPhone 14",
+  "price": 378.99,
+  "stock": 12,
+  "location": "Brunswick",  
+  "categories": ["1f066beb-72d3-43f9-be47-d42aa055e6ef"]
+}

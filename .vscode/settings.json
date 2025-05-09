@@ -1,0 +1,28 @@
+{
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.formatOnSave": true,
+  "javascript.preferences.importModuleSpecifier": "relative",
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "rest-client": {
+    "enableTelemetry": false,
+    "environmentVariables": {
+      "$shared": {
+        "URL": "http://localhost:3000/api"
+      },
+      "local": {
+        "URL": "http://localhost:3000/api"
+      },
+      "production": {
+        "URL": "http://localhost:3000/api"
+      }
+    }
+  }
+}

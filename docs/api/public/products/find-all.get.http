@@ -1,0 +1,6 @@
+# GET {{URL}}/products/?page=1&limit=10
+# content-type: application/json
+
+# QuickSearch Use
+GET {{URL}}/products/v2
+Content-Type: application/json

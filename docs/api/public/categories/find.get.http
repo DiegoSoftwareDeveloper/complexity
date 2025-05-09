@@ -1,0 +1,6 @@
+# GET {{URL}}/categories/?page=1&limit=10
+# content-type: application/json
+
+# QuickSearch Use
+GET {{URL}}/categories/?page=1&limit=10&quick-search=project
+Content-Type: application/json
