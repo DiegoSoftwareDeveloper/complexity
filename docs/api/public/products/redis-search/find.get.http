@@ -1,8 +1,8 @@
 ### Búsqueda con recarga automática
-GET {{URL}}/products-search?q=monitor&category=Electrónica
+GET {{URL}}/products-search?q=ergo&category=Libros
 
 ### Sugerencias con precarga
-GET {{URL}}/products-search/suggestions?q=sil
+GET {{URL}}/products-search/suggestions?q=erg
 
 ### HEALTH
 GET {{URL}}/health-redis
