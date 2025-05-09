@@ -1,9 +1,8 @@
-### SEARCH
-GET {{URL}}/products-search?q=iphone&category=electronics
+### Búsqueda con recarga automática
+GET {{URL}}/products-search?q=monitor&category=Electrónica
 
-### SUGGESTIONS
-GET {{URL}}/products-search/suggestions?q=iph
-
+### Sugerencias con precarga
+GET {{URL}}/products-search/suggestions?q=sil
 
 ### HEALTH
 GET {{URL}}/health-redis
