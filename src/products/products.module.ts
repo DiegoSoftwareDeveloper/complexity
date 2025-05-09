@@ -20,7 +20,7 @@ import { TerminusModule } from '@nestjs/terminus'
       {
         name: 'Product',
         schema: ProductSchemaMongoose,
-      }
+      },
     ]),
     RedisModule,
     TerminusModule,

@@ -23,7 +23,7 @@ export class ProductsSearchController {
     @Query('category') category: string,
     @Query('location') location: string,
     @Query('offset') offset = 0,
-    @Query('limit') limit = 10
+    @Query('limit') limit = 10,
   ) {
     try {
       if (!query || query.trim().length < 3) {
@@ -31,10 +31,10 @@ export class ProductsSearchController {
       }
 
       const results = await this._searchService.searchProducts(
-        query, 
-        { category, location }, 
-        { offset: Number(offset), limit: Number(limit) }
-      );
+        query,
+        { category, location },
+        { offset: Number(offset), limit: Number(limit) },
+      )
 
       return {
         success: true,
@@ -60,13 +60,13 @@ export class ProductsSearchController {
   @ApiQuery({ name: 'q', required: true })
   async getSuggestions(@Query('q') query: string) {
     try {
-      const suggestions = await this._searchService.getSuggestions(query);
+      const suggestions = await this._searchService.getSuggestions(query)
       return {
         success: true,
         count: suggestions.length,
         data: suggestions,
         timestamp: new Date().toISOString(),
-      };
+      }
     } catch (error) {
       // ... manejo de errores
       throw new HttpException(

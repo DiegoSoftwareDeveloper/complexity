@@ -61,9 +61,9 @@ export class ProductsService {
     const [result, err] = await this._productsRepository.base.create(productDomain)
     this._utilsSharedService.checkErrDatabaseThrowErr({ err })
 
-    await this._productsSearchService.indexProduct(result);
-    console.log(`Product ${result._id} indexed in Redis`);
-    return plainToInstance(ProductResDto, result);
+    await this._productsSearchService.indexProduct(result)
+    console.log(`Product ${result._id} indexed in Redis`)
+    return plainToInstance(ProductResDto, result)
   }
 
   async findById(arg: { id: string }): Promise<ProductResDto> {
@@ -94,9 +94,9 @@ export class ProductsService {
     this._utilsSharedService.checkErrDatabaseThrowErr({ err })
     this._utilsSharedService.checkErrIdNotFoundThrowErr({ result })
 
-    await this._productsSearchService.updateProduct(result);
-    console.log(`Product ${id} updated in Redis`);
-    return plainToInstance(ProductResDto, result);
+    await this._productsSearchService.updateProduct(result)
+    console.log(`Product ${id} updated in Redis`)
+    return plainToInstance(ProductResDto, result)
   }
 
   async deleteById(arg: { id: string }) {
@@ -109,8 +109,8 @@ export class ProductsService {
     this._utilsSharedService.checkErrDatabaseThrowErr({ err })
     this._utilsSharedService.checkErrIdNotFoundThrowErr({ result })
 
-    await this._productsSearchService.deleteProduct(id);
-    console.log(`Product ${id} removed from Redis`);
-    return plainToInstance(ProductResDto, result);
+    await this._productsSearchService.deleteProduct(id)
+    console.log(`Product ${id} removed from Redis`)
+    return plainToInstance(ProductResDto, result)
   }
 }
