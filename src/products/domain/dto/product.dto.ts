@@ -11,20 +11,6 @@ export class ProductResDto {
   @Expose()
   readonly description?: string
 
-  /*@ApiProperty({
-    type: [String],
-  })
-  @IsString()
-  @Expose()
-  @Type(() => String)
-  readonly categories?: string[]*/
-
-  /*@ApiProperty()
-  @IsObject()
-  @Expose()
-  @Type(() => CategoryResDto)
-  readonly _categories?: CategoryResDto[]*/
-
   @Expose()
   readonly category: string
 

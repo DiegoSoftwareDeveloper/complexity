@@ -26,13 +26,6 @@ export class ProductSchemaBaseMongoose extends Document implements IProductEntit
   })
   description?: string
 
-  /*@Prop({
-    required: false,
-    type: [MongooseSchema.Types.UUID],
-    ref: 'categories',
-  })
-  categories?: string[]*/
-
   @Prop({
     required: true,
     trim: true,

@@ -23,12 +23,10 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@elastic/elasticsearch": "^8.18.2",
     "@nestjs-modules/ioredis": "^2.0.2",
     "@nestjs/common": "^11.0.12",
     "@nestjs/config": "^4.0.1",
     "@nestjs/core": "^11.0.12",
-    "@nestjs/elasticsearch": "^11.1.0",
     "@nestjs/mongoose": "^11.0.3",
     "@nestjs/platform-express": "^11.0.12",
     "@nestjs/swagger": "^11.1.0",

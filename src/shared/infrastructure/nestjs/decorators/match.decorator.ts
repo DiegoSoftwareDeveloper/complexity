@@ -25,7 +25,7 @@ export function Match(property: string, validationOptions?: ValidationOptions) {
 }
 
 /**
- * MatchConstraint is a contraint of Math decorator, this allow validate if two
+ * MatchConstraint is a constraint of Math decorator, this allow validate if two
  * values are equal or not.
  */
 @ValidatorConstraint({ name: 'Match' })

@@ -61,59 +61,11 @@ export class ProductsRepositoryMongoose implements ProductsRepositoryDomain {
       pipelineBuilder.custom({ $match: { $or: orConditions } })
     }
 
-    pipelineBuilder.lookup({
-      from: 'categories',
-      localField: 'categories',
-      foreignField: '_id',
-      as: '_categories',
-      unwind: false,
-    })
-
     const pipeline = pipelineBuilder.build()
 
     return this.base.rawQueryPaginate({
       pipeline,
       options: new OptionsRepositoryDomain(queryPagination),
     })
-  }
-
-  async findByIdWithCategories(id: string): Promise<IReturnDomain<ProductEntity, Error>> {
-    const pipeline = this.utils
-      .start()
-      .equals({ filters: { _id: id } })
-      .lookup({
-        from: 'categories',
-        localField: 'categories',
-        foreignField: '_id',
-        as: '_categories',
-      })
-      .build()
-
-    const [result, error] = await this.base.run(() => this._model.aggregate(pipeline) as any)
-
-    const dataDomain = plainToInstance(ProductEntity, result[0])
-
-    return [dataDomain, error]
-  }
-
-  async findWithCategories(): Promise<IReturnDomain<ProductEntity[], Error>> {
-    const pipeline = this.utils
-      .start()
-      .lookup({
-        from: 'categories',
-        localField: 'categories',
-        foreignField: '_id',
-        as: '_categories',
-        unwind: false,
-      })
-      .build()
-
-    const [result, error] = await this.base.run(() => this._model.aggregate(pipeline) as any)
-
-    const resultsArray = Array.isArray(result) ? result : [result]
-
-    const dataDomain = plainToInstance(ProductEntity, resultsArray)
-
-    return [dataDomain, error]
   }
 }

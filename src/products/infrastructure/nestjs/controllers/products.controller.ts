@@ -15,11 +15,6 @@ export class ProductsController {
     return await this._productsService.findCustom({ queryPagination, quickSearch })
   }
 
-  @Get('/v2')
-  async allV2() {
-    return await this._productsService.find()
-  }
-
   @Post()
   async create(@Body() body: CreateProductDto) {
     return await this._productsService.create({ body })

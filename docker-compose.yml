@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redislabs/redisearch:latest
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --loadmodule /usr/lib/redis/modules/redisearch.so
+
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - DB_MONGO=mongodb://mongo:27017/complexity-dev
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - redis
+      - mongo
+
+volumes:
+  redis_data:
+  mongo_data:

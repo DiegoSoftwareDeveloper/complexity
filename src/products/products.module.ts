@@ -10,11 +10,9 @@ import { ProductsSearchController } from './infrastructure/nestjs/controllers/pr
 import { ProductsRepositoryDomain } from './domain/repositories/products.repository.domain'
 import { ProductsRepositoryMongoose } from './infrastructure/mongoose/repositories/products.repository'
 import { ProductSchemaMongoose } from './infrastructure/mongoose/schemas/products.schema.mongoose'
-import { CategoriesController } from '../categories/infrastructure/nestjs/controllers/categories.controller'
-import { CategoriesService } from '../categories/applications/services/categories/categories.service'
-import { CategoriesRepositoryDomain } from '../categories/domain/repositories/categories.repository.domain'
-import { CategoriesRepositoryMongoose } from '../categories/infrastructure/mongoose/repositories/categories.repository'
-import { CategorySchemaMongoose } from '../categories/infrastructure/mongoose/schemas/categories.schema.mongoose'
+import { RedisHealthService } from './infrastructure/redis/redis-health.service'
+import { RedisHealthController } from './infrastructure/nestjs/controllers/redis-health.controller'
+import { TerminusModule } from '@nestjs/terminus'
 
 @Module({
   imports: [
@@ -22,26 +20,18 @@ import { CategorySchemaMongoose } from '../categories/infrastructure/mongoose/sc
       {
         name: 'Product',
         schema: ProductSchemaMongoose,
-      },
-      {
-        name: 'Category',
-        schema: CategorySchemaMongoose,
-      },
+      }
     ]),
     RedisModule,
+    TerminusModule,
     ConfigModule, // Necesario para inyección de configuración
   ],
-  controllers: [ProductsController, CategoriesController, ProductsSearchController],
+  controllers: [ProductsController, ProductsSearchController, RedisHealthController],
   providers: [
     ProductsService,
     {
       provide: ProductsRepositoryDomain,
       useClass: ProductsRepositoryMongoose,
-    },
-    CategoriesService,
-    {
-      provide: CategoriesRepositoryDomain,
-      useClass: CategoriesRepositoryMongoose,
     },
     {
       provide: 'REDIS_CLIENT', // Proveedor para el cliente Redis
@@ -56,6 +46,7 @@ import { CategorySchemaMongoose } from '../categories/infrastructure/mongoose/sc
       inject: [ConfigService],
     },
     ProductsSearchRedisService,
+    RedisHealthService,
     UtilsSharedService,
   ],
   exports: [
@@ -65,6 +56,7 @@ import { CategorySchemaMongoose } from '../categories/infrastructure/mongoose/sc
       useClass: ProductsRepositoryMongoose,
     },
     ProductsSearchRedisService,
+    RedisHealthService,
     MongooseModule,
   ],
 })

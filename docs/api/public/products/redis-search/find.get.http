@@ -1,0 +1,9 @@
+### SEARCH
+GET {{URL}}/products-search?q=iphone&category=electronics
+
+### SUGGESTIONS
+GET {{URL}}/products-search/suggestions?q=iph
+
+
+### HEALTH
+GET {{URL}}/health-redis

@@ -9,6 +9,4 @@ export abstract class ProductsRepositoryDomain {
     quickSearch?: string
     queryPagination?: QueryPaginationDto
   }): Promise<IReturnDomain<PaginateResultDomain<K>, Error>>
-  abstract findByIdWithCategories(id: string): Promise<IReturnDomain<ProductEntity, Error>>
-  abstract findWithCategories(): Promise<IReturnDomain<ProductEntity[], Error>>
 }

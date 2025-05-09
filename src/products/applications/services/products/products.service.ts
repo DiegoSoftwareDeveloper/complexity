@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import { plainToInstance } from 'class-transformer'
 import { UtilsSharedService } from '../../../../shared/application/services/utils-shared.service'
 import { QueryPaginationDto } from '../../../../shared/domain/dto/query-pagination.dto'
@@ -7,30 +7,29 @@ import { ProductResDto } from '../../../domain/dto/product.dto'
 import { CreateProductDto } from '../../../domain/dto/create-product.dto'
 import { UpdateProductDto } from '../../../domain/dto/update-product.dto'
 import { ProductEntity } from '../../../domain/entities/product.entity'
-import { CategoriesService } from '../../../../categories/applications/services/categories/categories.service'
+import { ProductsSearchRedisService } from './products-search-redis.service'
 
 @Injectable()
 export class ProductsService {
   constructor(
     private readonly _productsRepository: ProductsRepositoryDomain,
-    private readonly _categoriesService: CategoriesService,
+    private readonly _productsSearchService: ProductsSearchRedisService,
     private readonly _utilsSharedService: UtilsSharedService,
   ) {}
 
-  async find() {
-    const [result, err] = await this._productsRepository.findWithCategories()
+  async find(arg: { queryPagination: QueryPaginationDto }) {
+    const { queryPagination } = arg
+
+    const [result, err] = await this._productsRepository.base.findPaginate({
+      options: {
+        ...queryPagination,
+      },
+    })
 
     this._utilsSharedService.checkErrDatabaseThrowErr({ err })
+    result.data = plainToInstance(ProductResDto, result.data)
 
-    const productsArray = Array.isArray(result) ? result : [result]
-    const data = plainToInstance(ProductEntity, productsArray)
-
-    console.log(data)
-
-    console.log(typeof data)
-    console.log(typeof result)
-
-    return data
+    return result
   }
 
   async findCustom(arg: { queryPagination: QueryPaginationDto; quickSearch?: string }) {
@@ -62,13 +61,15 @@ export class ProductsService {
     const [result, err] = await this._productsRepository.base.create(productDomain)
     this._utilsSharedService.checkErrDatabaseThrowErr({ err })
 
-    return plainToInstance(ProductResDto, result)
+    await this._productsSearchService.indexProduct(result);
+    console.log(`Product ${result._id} indexed in Redis`);
+    return plainToInstance(ProductResDto, result);
   }
 
   async findById(arg: { id: string }): Promise<ProductResDto> {
     const { id } = arg
 
-    const [result, err] = await this._productsRepository.findByIdWithCategories(id)
+    const [result, err] = await this._productsRepository.base.findById(id)
 
     this._utilsSharedService.checkErrDatabaseThrowErr({ err })
     this._utilsSharedService.checkErrIdNotFoundThrowErr({ result })
@@ -93,7 +94,9 @@ export class ProductsService {
     this._utilsSharedService.checkErrDatabaseThrowErr({ err })
     this._utilsSharedService.checkErrIdNotFoundThrowErr({ result })
 
-    return plainToInstance(ProductResDto, result)
+    await this._productsSearchService.updateProduct(result);
+    console.log(`Product ${id} updated in Redis`);
+    return plainToInstance(ProductResDto, result);
   }
 
   async deleteById(arg: { id: string }) {
@@ -106,6 +109,8 @@ export class ProductsService {
     this._utilsSharedService.checkErrDatabaseThrowErr({ err })
     this._utilsSharedService.checkErrIdNotFoundThrowErr({ result })
 
-    return plainToInstance(ProductResDto, result)
+    await this._productsSearchService.deleteProduct(id);
+    console.log(`Product ${id} removed from Redis`);
+    return plainToInstance(ProductResDto, result);
   }
 }

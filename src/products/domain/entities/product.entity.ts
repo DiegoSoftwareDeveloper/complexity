@@ -6,9 +6,7 @@ export interface IProductEntity {
   _id?: string
   name: string
   description?: string
-  category?: string
-  /*categories?: string[]
-  _categories?: ICategoryEntity[]*/
+  category: string
   price: number
   stock: number
   location: string
@@ -27,14 +25,6 @@ export class ProductEntity implements IProductEntity {
 
   @Expose()
   description?: string
-
-  /*@Expose()
-  @Transform(transformIdToStringArray)
-  categories?: string[]
-
-  @Expose()
-  @Type(() => CategoryEntity)
-  _categories?: CategoryEntity[]*/
 
   @Expose()
   category: string

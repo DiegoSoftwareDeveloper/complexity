@@ -17,17 +17,10 @@ export class CreateProductDto {
   @IsOptional()
   readonly description?: string
 
-  @ApiPropertyOptional()
+  @ApiProperty()
   @IsString()
   @IsOptional()
-  readonly category?: string
-
-  /*@ApiPropertyOptional({ type: [String], required: false })
-  @IsArray()
-  @IsOptional()
-  @IsString({ each: true })
-  @IsUUID('all', { each: true })
-  readonly categories?: string[]*/
+  readonly category: string
 
   @ApiProperty()
   @IsNumber()
