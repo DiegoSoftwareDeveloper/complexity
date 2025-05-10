@@ -1,107 +1,123 @@
+# 🚀 Sistema de Búsqueda Avanzada con NestJS, Redis y MongoDB
+
+## 🛠 Tecnologías Principales
+
 <p align="center">
-  <a href="" rel="noopener">
- <img height=500px src="./docs/hex-ddd.png" alt="Project logo"></a>
+  <img src="https://nestjs.com/img/logo_text.svg" width="200" alt="NestJS Logo">
+  <img src="https://redis.com/wp-content/uploads/2021/06/redis-logo.svg" width="150" alt="Redis Logo">
+  <img src="https://webimages.mongodb.com/_com_assets/cms/kuyjf3vea2hg34taa-horizontal_default_slate_blue.svg?auto=format%252Ccompress" width="200" alt="MongoDB Logo">
 </p>
 
-## Description
+## 📋 Descripción
 
-Core backend with DDD + Hexagonal
+Sistema backend construido con **NestJS** que implementa:
 
-# Get Starting
+- Arquitectura **Hexagonal** + **DDD**
+- Búsqueda avanzada con **Redis** (RediSearch)
+- Persistencia principal en **MongoDB**
+- API REST documentada
 
-## Define ORM
-
-Choose whether to work with mongodb, you can comment or remove the references in the modules, it depends on the ORM you choose.
-
-## Installation
+<p align="center">
+  <a href="" rel="noopener">
+ <img height=500px src="./docs/diagram.png" alt="Project logo"></a>
+</p>
+<p align="center">
+  <a href="" rel="noopener">
+ <img height=500px src="./docs/rediscommunication.svg" alt="redis communication"></a>
+</p>
+<p align="center">
+  <a href="" rel="noopener">
+ <img height=500px src="./docs/flujo.svg" alt="flujo"></a>
+</p>
 
 ```bash
+src/
+├── modules/
+│ ├── products/ # Ejemplo módulo principal
+│ │ ├── applications/
+│ │ │ └── services/ # Lógica de negocio
+│ │ │ └── products.service.ts
+│ │ │ └── products-search-redis.service.ts
+│ │ │
+│ │ ├── domain/
+│ │ │ ├── dto/ # Objetos de transferencia
+│ │ │ │ ├── create-product.dto.ts
+│ │ │ │ ├── update-product.dto.ts
+│ │ │ │ └── product.dto.ts
+│ │ │ │
+│ │ │ ├── entities/ # Entidades de dominio
+│ │ │ │ └── product.entity.ts
+│ │ │ │
+│ │ │ └── repositories/ # Interfaces abstractas
+│ │ │ └── products.repository.domain.ts
+│ │ │
+│ │ └── infrastructure/
+│ │ ├── mongoose/ # Implementación MongoDB
+│ │ │ ├── repositories/
+│ │ │ │ └── products.repository.mongoose.ts
+│ │ │ └── schemas/
+│ │ │ └── product.schema.mongoose.ts
+│ │ │
+│ │ └── nestjs/ # Controladores HTTP
+│ │ └── controllers/
+│ │ └── products-search.controller.ts
+│ │ └── products.controller.ts
+│ │ └── redis-health.controller.ts
+│ │ │
+│ │ └── redis/ # health-check
+│ │ └── redis-health.service.ts
+│ │
+│ └── module.ts # Configuración del módulo
+│
+├── shared/ # Utilidades compartidas
+└── main.ts # Punto de entrada
+```
+
+## 🔧 Requisitos Previos
+
+- Node.js 16+
+- NestJS CLI (`npm i -g @nestjs/cli`)
+- MongoDB 5+
+- Redis 6.2+ con módulo RediSearch
+- Docker
+
+## 🛠 Instalación
+
+```bash
+# 1. Clonar repositorio
+git clone https://github.com/DiegoSoftwareDeveloper/complexity.git
+
+# 2. Instalar dependencias
 npm install
+
+# 3. Iniciar instancia Redis
+docker run --name redisearch-container -p 6379:6379 -d redislabs/redisearch:latest
 ```
 
-## Running the app
+# Comandos Manuales
 
-```bash
-# development mode
+```node
+# 1. Comando para cargar la base de datos con registros aleatorios
+mongo --quiet scripts/mongo-seed-uuid.js
+
+# 2. Ejecutar proyecto
 npm run start:dev
-
-
-# production mode
-npm run start:prod
 ```
 
-## Test
+# API Endpoints
 
-```bash
-# unit tests
-npm run test
+```endpoints
+You can check all endpoints in swagger: http://localhost:3000/api/docs
 
-# end to end tests
-npm run test:e2e
-
-# integration tests
-npm run test:int
-
-# test coverage
-npm run test:cov
+GET /api/health-check	- Review status Redis
+GET /api/products-search - Advanced product search
+GET	/api/products-search/suggestions - Get search suggestions
+GET /api/health-redis - Estado de salud de Redis
+POST /api/products - Create product
 ```
 
-# Development
+# Important
 
-## Generate a new module in the architecture
-
-note: test with --dry-run after omit --dry-run change products for name module
-
-```bash
-nest generate module products --dry-run
-
-nest generate service products/applications/services/products --dry-run --no-spec
-
-nest generate provider products/infrastructure/mongoose/repositories/products.repository --dry-run --no-spec --flat
-
-nest generate controller products/infrastructure/nestjs/controllers/products --dry-run --no-spec --flat
-```
-
-## Development rules
-
-- Before developing any functionality, make a diagram where you check the flow, domain model and database model.
-- In the service layer avoid importing external libraries (e.g. mongo or SQL queries).
-- Each endpoint to be developed should have one or more restclient .http files with example data.
-
-## Pending to do
-
-Create Facade ConfigService get as property config
-Refactor email service add handler err in return
-Support database relacional
-
-Constructor Module
-Scalar Module
-Command Module (seeders database)
-
-## Test API with REST client
-
-Install extension REST Client [docs](https://marketplace.visualstudio.com/items?itemName=humao.rest-client/)
-
-Configure token jwt `.vscode/settings.json`
-
-```json
-  "rest-client": {
-    "enableTelemetry": false,
-    "environmentVariables": {
-      "$shared": {
-        "TOKEN": "",
-        "URL": "http://localhost:3000/api"
-      },
-      "local": {
-        "URL": "http://localhost:3000/api"
-      },
-      "production": {
-        "URL": "http://localhost:3000/api"
-      }
-    }
-  }
-```
-
-## Documentation Official
-
-<https://docs.nestjs.com/>
+- **Development Mode**: Redis security está deshabilitado por defecto
+- **Datos de Prueba**: Se proporciona un script que registra dinámicamente 100 filas en mongo para que el usuario pruebe directamente si lo desea
+- **Dependencias**: Debe tener instaladas las versiones requeridas para que trabaje correctamente

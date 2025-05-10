@@ -1,9 +1,0 @@
-@id = 1f066beb-72d3-43f9-be47-d42aa055e6ef
-
-PUT {{URL}}/categories/{{id}}
-content-type: application/json
-
-{
-  "name": "Electronic",
-  "normalizedName": "electronic"
-}
