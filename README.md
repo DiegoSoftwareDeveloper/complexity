@@ -19,7 +19,7 @@ Sistema backend construido con **NestJS** que implementa:
 
 <p align="center">
   <a href="" rel="noopener">
- <img height=500px src="./docs/diagram.png" alt="Project logo"></a>
+ <img height=500px src="./docs/hex-ddd.png" alt="Arquitectura"></a>
 </p>
 <p align="center">
   <a href="" rel="noopener">
