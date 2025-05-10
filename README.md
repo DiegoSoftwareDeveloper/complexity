@@ -4,7 +4,7 @@
 
 <p align="center">
   <img src="https://nestjs.com/img/logo_text.svg" width="200" alt="NestJS Logo">
-  <img src="https://redis.com/wp-content/uploads/2021/06/redis-logo.svg" width="150" alt="Redis Logo">
+  <img src="https://1000marcas.net/wp-content/uploads/2021/06/Redis-Logo.png" width="150" alt="Redis Logo">
   <img src="https://webimages.mongodb.com/_com_assets/cms/kuyjf3vea2hg34taa-horizontal_default_slate_blue.svg?auto=format%252Ccompress" width="200" alt="MongoDB Logo">
 </p>
 
